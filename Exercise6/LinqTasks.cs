@@ -259,7 +259,10 @@ namespace Exercise6
         /// </summary>
         public static Emp Task9()
         {
-            Emp result = null;
+            Emp result = Emps
+                .Where(e => e.Job == "Frontend programmer")
+                .OrderByDescending(e => e.HireDate)
+                .FirstOrDefault();
             return result;
         }
 
@@ -270,7 +273,13 @@ namespace Exercise6
         /// </summary>
         public static IEnumerable<object> Task10()
         {
-            IEnumerable<object> result = null;
+            IEnumerable<object> result = Emps
+                .Select(e => new 
+                {
+                    Ename = e.Ename,
+                    Job = e.Job,
+                    Hiredate = e.HireDate
+                });
             return result;
         }
 
@@ -324,8 +333,10 @@ namespace Exercise6
         /// </summary>
         public static IEnumerable<Dept> Task14()
         {
-            IEnumerable<Dept> result = null;
-            //result =
+            IEnumerable<Dept> result = Depts
+                .Where(dept => Emps.Count(emp => emp.Deptno == dept.Deptno) == 5 ||
+                               !Emps.Any(emp => emp.Deptno == dept.Deptno))
+                .OrderBy(dept => dept.Dname);
             return result;
         }
     }
